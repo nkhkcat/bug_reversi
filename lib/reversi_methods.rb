@@ -60,16 +60,16 @@ module ReversiMethods
     turn_succeed
   end
 
-  def turn(board, target_pos, attack_stone_color, direction, is_recursive_call=false)
+  def turn(board, target_pos, attack_stone_color, direction, is_recursive_call: false)
     return false if target_pos.out_of_board?
     return false if target_pos.stone_color(board) == BLANK_CELL
     return is_recursive_call if target_pos.stone_color(board) == attack_stone_color
 
     next_pos = target_pos.next_position(direction)
-    if (target_pos.stone_color(board) != attack_stone_color) && turn(board, next_pos, attack_stone_color, direction, true)
-      board[target_pos.row][target_pos.col] = attack_stone_color
-      return true
-    end
+    return unless (target_pos.stone_color(board) != attack_stone_color) && turn(board, next_pos, attack_stone_color, direction, true)
+
+    board[target_pos.row][target_pos.col] = attack_stone_color
+    true
   end
 
   def finished?(board)

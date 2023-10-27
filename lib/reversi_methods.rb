@@ -66,7 +66,7 @@ module ReversiMethods
     return is_recursive_call if target_pos.stone_color(board) == attack_stone_color
 
     next_pos = target_pos.next_position(direction)
-    return unless (target_pos.stone_color(board) != attack_stone_color) && turn(board, next_pos, attack_stone_color, direction, true)
+    return unless (target_pos.stone_color(board) != attack_stone_color) && turn(board, next_pos, attack_stone_color, direction, is_recursive_call: true)
 
     board[target_pos.row][target_pos.col] = attack_stone_color
     true
